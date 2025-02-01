@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
-import { config } from "dotenv";
-config();
+import env from '../env.js';
+import { findByEmail } from '../repositories/userRepository.js';
 
-const AUTH0_DOMAIN = process.env.AUTH0_DOMAIN;
+const AUTH0_DOMAIN = env.auth.domain;
 const client = jwksClient({
   jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json` // Replace with your Auth0 domain
 });
@@ -16,22 +16,23 @@ async function verifyToken(req, res, next) {
       return res.status(403).json({ error: 'Authorization token is missing' });
     }
   
-    const decodedHeader = jwt.decode(token, { complete: true });
+    const decodedHeader = jwt.decode(token, { complete: true });    
     if (!decodedHeader || !decodedHeader.header || !decodedHeader.header.kid) {
-      return res.status(401).send('Token is missing key ID (kid)');
+      return res.status(401).send('Invalid token verification failed');
     }
 
     const { header } = decodedHeader;
     const { publicKey, rsaPublicKey } = await client.getSigningKey(header.kid);
     if (!publicKey && !rsaPublicKey) {
-      return res.status(401).send('Invalid key ID (kid) provided.');
+      return res.status(401).send('Invalid token verification failed.');
     }
     
     const decoded = jwt.verify(token, (publicKey || rsaPublicKey), {
       issuer: `https://${AUTH0_DOMAIN}/`,
     });
 
-    req.user = decoded;  // Store the decoded token in the request object (user info, etc.)
+    const user = await findByEmail(decoded.email);
+    req.user = user;  // Store the decoded token in the request object (user info, etc.)
     next();  // Proceed to the next middleware or route handler 
   } catch (error) {
     console.log('Error authenticating user', error);
