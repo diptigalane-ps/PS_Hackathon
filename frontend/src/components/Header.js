@@ -1,76 +1,36 @@
-import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Badge } from '@mui/material';
-import { Logout, Notifications, Menu } from '@mui/icons-material';
-import Sidebar from './Sidebar';  // Import the Sidebar component
+import React from "react";
+import { AppBar, Toolbar, Typography, IconButton, Badge } from "@mui/material";
+import { Menu as MenuIcon, Notifications as NotificationsIcon, Logout as LogoutIcon } from "@mui/icons-material";
+import { useAuth0 } from "@auth0/auth0-react"; // Import useAuth0
 
-const Header = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const unreadNotifications = 3; // Example: replace with dynamic value
-
-  const handleLogout = () => {
-    // Handle logout logic
-    console.log('Logged out');
-  };
-
-  const handleNotifications = () => {
-    // Handle notification logic
-    console.log('Notifications clicked');
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);  // Toggle sidebar visibility
-  };
+const Header = ({ onMenuClick }) => {
+  const { logout } = useAuth0(); // Move logout here
 
   return (
-    <div>
-      <AppBar position="static">
-        <Toolbar>
-          {/* Menu Icon on the left */}
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={toggleSidebar}
-            sx={{ marginRight: 2 }}
-          >
-            <Menu />
-          </IconButton>
+    <AppBar position="static">
+      <Toolbar>
+        {/* Menu Button for Sidebar */}
+        <IconButton edge="start" color="inherit" onClick={onMenuClick}>
+          <MenuIcon />
+        </IconButton>
 
-          {/* Title in the middle */}
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Wealth Management Portal
-          </Typography>
+        <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
+          Wealth Management
+        </Typography>
 
-          <div>
-            {/* Notification Icon with Badge */}
-            <IconButton
-              size="large"
-              color="inherit"
-              onClick={handleNotifications}
-              sx={{ marginRight: 2 }}
-            >
-              <Badge
-                badgeContent={unreadNotifications}
-                color="error"
-              >
-                <Notifications />
-              </Badge>
-            </IconButton>
+        {/* Notification Icon */}
+        <IconButton color="inherit">
+          <Badge badgeContent={3} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
 
-            {/* Logout Icon */}
-            <IconButton
-              size="large"
-              color="inherit"
-              onClick={handleLogout}
-            >
-              <Logout />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-
-      {/* Sidebar */}
-      <Sidebar open={sidebarOpen} onClose={toggleSidebar} />
-    </div>
+        {/* Logout Button */}
+        <IconButton color="inherit" onClick={() => logout({ returnTo: window.location.origin })}>
+          <LogoutIcon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 };
 
