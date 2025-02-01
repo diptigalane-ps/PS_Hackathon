@@ -4,11 +4,14 @@ import { useDispatch } from 'react-redux';
 import { login, logout as logoutAction } from '../slice/authSlice';
 
 const AuthButton = () => {
-  const { loginWithRedirect, isAuthenticated, user,login,logout} = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
+
   const handleLogin = async () => {
-    await loginWithRedirect();    
-    dispatch(login(user));
+    await loginWithRedirect();
+    if (user) {
+      dispatch(login(user)); // Assuming your Redux login action accepts user data
+    }
   };
 
   const handleLogout = async () => {
