@@ -13,8 +13,19 @@ export const createIncomeTransaction = async (user, data) => {
   }
 };
 
-export const getAllIncomeTransactions = async () => {
-  return await incomeTransactionRepository.getAllIncomeTransactions();
+export const getAllIncomeTransactions = async (user_id, skip) => {
+  try {
+    const options = {
+      where: {
+        user_id
+      },
+      limit: 10,
+      offset: skip*10
+    }
+    return await incomeTransactionRepository.getAllIncomeTransactions(options);
+    } catch (error) {
+      throw error;
+    }
 };
 
 export const getIncomeTransactionById = async (id) => {
@@ -30,5 +41,5 @@ export const deleteIncomeTransaction = async (id) => {
 };
 
 export const getAllIncomeCategories = async () => {
-  return await incomeCategoryRepository.getAllIncomeCategories();
+    return await incomeCategoryRepository.getAllIncomeCategories();
 };

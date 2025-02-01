@@ -5,8 +5,8 @@ export const createIncomeTransaction = async (data) => {
   return await IncomeTransaction.create(data);
 };
 
-export const getAllIncomeTransactions = async () => {
-  return await IncomeTransaction.findAll();
+export const getAllIncomeTransactions = async (options = {}) => {
+  return await IncomeTransaction.findAll(options);
 };
 
 export const getIncomeTransactionById = async (id) => {
