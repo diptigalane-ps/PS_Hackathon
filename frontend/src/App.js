@@ -3,18 +3,23 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
+
+import { alpha } from '@mui/material/styles';
+import {Box, Stack } from '@mui/material';
+
 import Header from "./components/Header";
-import Sidebar from "./components/SideBar";
+import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import GoalsForm from "./components/GoalsForm";
 import Investment from "./components/Investment";
 import Knowledge from "./components/Knowledge";
 import AuthButton from "./components/AuthButton"; // Import AuthButton
+import Income from "./components/Income.js";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
-const ProtectedRoutes = () => {
+const ProtectedRoutes = (props) => {
   const { isAuthenticated } = useAuth0();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -23,17 +28,39 @@ const ProtectedRoutes = () => {
   }
 
   return (
-    <>
+    <div>
       <Header onMenuClick={() => setSidebarOpen(true)} />
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/goals" element={<GoalsForm />} />
-        <Route path="/investment" element={<Investment />} />
-        <Route path="/knowledge" element={<Knowledge />} />
-      </Routes>
-    </>
+      <Box
+        component="main"
+        sx={(theme) => ({
+          flexGrow: 1,
+          backgroundColor: theme.vars
+            ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
+            : alpha(theme.palette.background.default, 1),
+          overflow: 'auto',
+        })}
+      >
+        <Stack
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+            mx: 3,
+            pb: 5,
+            mt: { xs: 8, md: 0 },
+          }}
+        >
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/goals" element={<GoalsForm />} />
+            <Route path="/investment" element={<Investment />} />
+            <Route path="/knowledge" element={<Knowledge />} />
+            <Route path="/income" element={<Income />} />
+          </Routes>
+        </Stack>
+      </Box>
+    </div>
   );
 };
 

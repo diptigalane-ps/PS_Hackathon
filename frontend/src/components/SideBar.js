@@ -8,7 +8,8 @@ const Sidebar = ({ open, onClose }) => {
     { text: 'Goals', path: '/GoalsForm' },  
     { text: 'Investment', path: '/investment' },
     { text: 'Knowledge', path: '/knowledge' },
-    { text: 'Dashboard', path: '/' }
+    { text: 'Dashboard', path: '/' },
+    { text: 'Income', path: '/income' }
   ];
 
   return (
