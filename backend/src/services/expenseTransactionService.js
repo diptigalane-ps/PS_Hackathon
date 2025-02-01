@@ -14,8 +14,19 @@ export const createExpenseTransaction = async (user, data) => {
   }
 };
 
-export const getAllExpenseTransactions = async () => {
-  return await expenseTransactionRepository.getAllExpenseTransactions();
+export const getAllExpenseTransactions = async (user_id, skip) => {
+  try {
+    const options = {
+      where: {
+        user_id
+      },
+      limit: 10,
+      offset: skip*10
+    }
+    return await expenseTransactionRepository.getAllExpenseTransactions(options);
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getExpenseTransactionById = async (id) => {

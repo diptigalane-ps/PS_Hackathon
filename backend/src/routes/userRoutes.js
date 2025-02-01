@@ -6,5 +6,6 @@ import verifyToken from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/', verifyToken, userController.createUser);
+router.post('/dashboard', verifyToken, userController.getDashboardData);
 
 export default router;
