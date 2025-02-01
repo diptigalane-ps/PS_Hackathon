@@ -1,7 +1,7 @@
-import React, { use } from 'react';
+import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
-import { login, logout } from '../slice/authSlice';
+import { login, logout as logoutAction } from '../slice/authSlice';
 
 const AuthButton = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
@@ -11,9 +11,9 @@ const AuthButton = () => {
     dispatch(login(user));
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     logout({ returnTo: window.location.origin });
-    dispatch(logout());
+    dispatch(logoutAction());
   };
 
   return (
