@@ -8,7 +8,7 @@ app.use(express.json());
 app.use('/api', itemRoutes);
 
 const PORT = process.env.PORT || 3000;
-sequelize.sync().then(() => {
+sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
