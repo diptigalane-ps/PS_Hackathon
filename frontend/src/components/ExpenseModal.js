@@ -4,26 +4,29 @@ import Modal from '@mui/material/Modal';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { TextField, MenuItem, Button, FormHelperText, FormControl, InputLabel, Select, Typography } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
 import { fetchCategories, submitExpense } from '../api/apiService';
 
 export default function ExpenseModal(props) {
   const { open, close } = props;
+  const { getIdTokenClaims } = useAuth0();
 
-  // State for categories and loading state
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // Fetch categories when dropdown is opened
   const handleCategoryOpen = async () => {
-    if (categories.length === 0) { // Only fetch if categories are empty
+    if (categories.length === 0) {
       setLoading(true);
       try {
-        const data = await fetchCategories(); // Fetch categories
-        setCategories(data); // Update state with the fetched data
+        const idTokenClaims = await getIdTokenClaims();
+        const idToken = idTokenClaims?.__raw;
+        const data = await fetchCategories(idToken);
+        setCategories(data);
       } catch (error) {
         console.error("Error fetching categories", error);
       } finally {
-        setLoading(false); // Stop loading indicator
+        setLoading(false);
       }
     }
   };
@@ -46,23 +49,25 @@ export default function ExpenseModal(props) {
         <Formik
           initialValues={{ category: '', amount: '' }}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            const expenseData = {
-              expense_category_id: values.category,
-              amount: values.amount,
-              date: new Date().toISOString().split('T')[0], // today's date
-            };
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              const idTokenClaims = await getIdTokenClaims();
+              const idToken = idTokenClaims?.__raw;
 
-            submitExpense(expenseData)
-              .then(response => {
-                console.log('Expense submitted successfully:', response);
-                setSubmitting(false);
-                close(); // Close the modal after successful submission
-              })
-              .catch(error => {
-                console.error('Error submitting expense:', error);
-                setSubmitting(false);
-              });
+              const expenseData = {
+                expense_category_id: values.category,
+                amount: values.amount,
+                date: new Date().toISOString().split('T')[0],
+              };
+
+              await submitExpense(expenseData, idToken);
+              console.log('Expense submitted successfully');
+              close();
+            } catch (error) {
+              console.error('Error submitting expense:', error);
+            } finally {
+              setSubmitting(false);
+            }
           }}
         >
           {({ errors, touched, handleChange, handleBlur, values, isSubmitting }) => (
@@ -76,10 +81,11 @@ export default function ExpenseModal(props) {
                   value={values.category}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  onOpen={handleCategoryOpen}  // Fetch categories when dropdown is opened
+                  onOpen={handleCategoryOpen}
                   error={touched.category && Boolean(errors.category)}
+                  label="Category"
+                  sx={{ minWidth: 200 }}
                 >
-                  {/* Display loading indicator or dropdown items */}
                   {loading ? (
                     <MenuItem disabled>Loading...</MenuItem>
                   ) : (

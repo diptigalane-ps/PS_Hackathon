@@ -9,8 +9,9 @@ const AuthButton = () => {
 
   const handleLogin = async () => {
     await loginWithRedirect();
+
     if (user) {
-      dispatch(login(user)); // Assuming your Redux login action accepts user data
+      dispatch(login(user)); 
     }
   };
 
