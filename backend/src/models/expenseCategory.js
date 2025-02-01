@@ -1,8 +1,8 @@
-// models/IncomeCategory.js
+// models/ExpenseCategory.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
-const IncomeCategory = sequelize.define('Income_Category', {
+const ExpenseCategory = sequelize.define('Expense_Category', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -26,4 +26,4 @@ const IncomeCategory = sequelize.define('Income_Category', {
   timestamps: false,
 });
 
-export default IncomeCategory;
+export default ExpenseCategory;

@@ -1,10 +1,10 @@
-// models/IncomeTransaction.js
+// models/ExpenseTransaction.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 import User from './user.js';
-import IncomeCategory from './incomeCategory.js';
+import ExpenseCategory from './expenseCategory.js';
 
-const IncomeTransaction = sequelize.define('Income_Transaction', {
+const ExpenseTransaction = sequelize.define('Expense_Transaction', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -17,10 +17,10 @@ const IncomeTransaction = sequelize.define('Income_Transaction', {
       key: 'id',
     },
   },
-  income_category_id: {
+  expense_category_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: IncomeCategory,
+      model: ExpenseCategory,
       key: 'id',
     },
   },
@@ -43,10 +43,10 @@ const IncomeTransaction = sequelize.define('Income_Transaction', {
   timestamps: false,
 });
 
-User.hasMany(IncomeTransaction, { foreignKey: 'user_id' });
-IncomeTransaction.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(ExpenseTransaction, { foreignKey: 'user_id' });
+ExpenseTransaction.belongsTo(User, { foreignKey: 'user_id' });
 
-IncomeCategory.hasMany(IncomeTransaction, { foreignKey: 'income_category_id' });
-IncomeTransaction.belongsTo(IncomeCategory, { foreignKey: 'income_category_id' });
+ExpenseCategory.hasMany(ExpenseTransaction, { foreignKey: 'expense_category_id' });
+ExpenseTransaction.belongsTo(ExpenseCategory, { foreignKey: 'expense_category_id' });
 
-export default IncomeTransaction;
+export default ExpenseTransaction;
