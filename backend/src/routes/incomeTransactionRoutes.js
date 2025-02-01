@@ -9,9 +9,11 @@ router.route('').all(verifyToken)
 .get(incomeTransactionController.getAllIncomeTransactions)
 .post(incomeTransactionController.createIncomeTransaction);
 
+router.get('/categories', verifyToken, incomeTransactionController.getAllIncomeCategories);
 router.route('/:id').all(verifyToken)
 .get(incomeTransactionController.getIncomeTransactionById)
 .put(incomeTransactionController.updateIncomeTransaction)
 .delete(incomeTransactionController.deleteIncomeTransaction);
+
 
 export default router;

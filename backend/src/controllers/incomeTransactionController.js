@@ -60,3 +60,12 @@ export const deleteIncomeTransaction = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getAllIncomeCategories = async (req, res) => {
+  try {
+    const categories = await incomeTransactionService.getAllIncomeCategories();
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

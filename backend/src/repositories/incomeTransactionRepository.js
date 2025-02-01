@@ -1,5 +1,5 @@
 // repositories/incomeTransactionRepository.js
-import IncomeTransaction from '../models/IncomeTransaction.js';
+import IncomeTransaction from '../models/incomeTransaction.js';
 
 export const createIncomeTransaction = async (data) => {
   return await IncomeTransaction.create(data);

@@ -1,4 +1,5 @@
 import * as incomeTransactionRepository from '../repositories/incomeTransactionRepository.js';
+import * as incomeCategoryRepository from '../repositories/incomeCategoryRepository.js';
 
 export const createIncomeTransaction = async (user, data) => {
   try {
@@ -26,4 +27,8 @@ export const updateIncomeTransaction = async (id, data) => {
 
 export const deleteIncomeTransaction = async (id) => {
   return await incomeTransactionRepository.deleteIncomeTransaction(id);
+};
+
+export const getAllIncomeCategories = async () => {
+  return await incomeCategoryRepository.getAllIncomeCategories();
 };
