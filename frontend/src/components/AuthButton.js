@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { login, logout as logoutAction } from '../slice/authSlice';
 
 const AuthButton = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, user,login,logout} = useAuth0();
   const dispatch = useDispatch();
   const handleLogin = async () => {
     await loginWithRedirect();    

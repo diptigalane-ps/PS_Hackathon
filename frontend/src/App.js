@@ -1,14 +1,15 @@
 import { store } from "./store/store.js";
-import AuthButton from './components/AuthButton';
 import './App.css';
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Provider } from "react-redux";
+import {Dashboard} from "./components/Dashboard.js"
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 function App() {
   return (
+    <div>
     <Auth0Provider
       domain={domain}
       clientId={clientId}
@@ -16,11 +17,12 @@ function App() {
     >
       <Provider store={store}>
         <div className="App">
-          <h1>Welcome to My App</h1>
-          <AuthButton />
+          <Dashboard></Dashboard>
+          {/* <AuthButton /> */}
         </div>
       </Provider>
     </Auth0Provider>
+    </div>
   );
 }
 
