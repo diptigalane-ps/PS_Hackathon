@@ -1,5 +1,6 @@
 // services/expenseTransactionService.js
 import * as expenseTransactionRepository from '../repositories/expenseTransactionRepository.js';
+import * as expenseCategoryRepository from '../repositories/expenseCategoryRepository.js';
 
 export const createExpenseTransaction = async (user, data) => {
   try {
@@ -27,4 +28,9 @@ export const updateExpenseTransaction = async (id, data) => {
 
 export const deleteExpenseTransaction = async (id) => {
   return await expenseTransactionRepository.deleteExpenseTransaction(id);
+};
+
+export const getAllExpenseCategories = async () => {
+  console.log("Here");
+  return await expenseCategoryRepository.getAllExpenseCategories();
 };

@@ -32,10 +32,6 @@ const User = sequelize.define('User', {
   address: {
     type: DataTypes.STRING,
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,

@@ -10,10 +10,12 @@ router.route('/')
   .get(expenseTransactionController.getAllExpenseTransactions)
   .post(expenseTransactionController.createExpenseTransaction);
 
+router.get('/categories', verifyToken, expenseTransactionController.getAllExpenseCategories);
 router.route('/:id')
   .all(verifyToken)
   .get(expenseTransactionController.getExpenseTransactionById)
   .put(expenseTransactionController.updateExpenseTransaction)
   .delete(expenseTransactionController.deleteExpenseTransaction);
+
 
 export default router;
