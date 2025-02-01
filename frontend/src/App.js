@@ -8,7 +8,7 @@ import { alpha } from '@mui/material/styles';
 import {Box, Stack } from '@mui/material';
 
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar.js";
 import Dashboard from "./components/Dashboard";
 import GoalsForm from "./components/GoalsForm";
 import Investment from "./components/Investment";

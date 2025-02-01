@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Typography from '@mui/material/Typography';
-import TransactionModal from './TransactionModal';
 import { Button, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ExpenseModal from './ExpenseModal';
