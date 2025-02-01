@@ -1,19 +1,22 @@
-import React, { use } from 'react';
+import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
-import authSlice from '../slice/authSlice';
+import { login } from '../slice/authSlice'; // Assuming these actions exist in your Redux slice
 
 const AuthButton = () => {
-  const { loginWithRedirect, isAuthenticated, user,login,logout} = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
+
   const handleLogin = async () => {
-    await loginWithRedirect();    
-    dispatch(login(user));
+    await loginWithRedirect();
+    if (user) {
+      dispatch(login(user)); // Assuming your Redux login action accepts user data
+    }
   };
 
   const handleLogout = () => {
     logout({ returnTo: window.location.origin });
-    dispatch(logout());
+    dispatch(logout()); // Assuming your Redux logout action clears the user state
   };
 
   return (
