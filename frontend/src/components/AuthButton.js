@@ -6,9 +6,12 @@ import { login, logout as logoutAction } from '../slice/authSlice';
 const AuthButton = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const dispatch = useDispatch();
+
   const handleLogin = async () => {
-    await loginWithRedirect();    
-    dispatch(login(user));
+    await loginWithRedirect();
+    if (user) {
+      dispatch(login(user)); // Assuming your Redux login action accepts user data
+    }
   };
 
   const handleLogout = async () => {
