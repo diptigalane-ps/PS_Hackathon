@@ -14,7 +14,7 @@ import GoalsForm from "./components/GoalsForm";
 import Investment from "./components/Investment";
 import Knowledge from "./components/Knowledge";
 import AuthButton from "./components/AuthButton"; // Import AuthButton
-import Income from "./components/Income.js";
+import Income from "./components/IncomeModal.js";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
