@@ -19,7 +19,6 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 	const dashboard = useSelector((state) => state.dashboard.data);
 	const status = useSelector((state) => state.dashboard.status);
-  const error = useSelector((state) => state.dashboard.error);
 
   const [openExpenseModal, setOpenExpenseModal] = useState(false);
   const [openIncomeModal, setOpenIncomeModal] = useState(false); // State for IncomeModal

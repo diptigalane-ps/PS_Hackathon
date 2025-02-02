@@ -4,7 +4,6 @@ import Modal from '@mui/material/Modal';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { TextField, MenuItem, Button, FormHelperText, FormControl, InputLabel, Select, Typography } from '@mui/material';
-import { useAuth0 } from '@auth0/auth0-react';
 import { fetchIncomeCategories, submitIncome } from '../api/apiService';
 
 export default function IncomeModal(props) {
