@@ -107,7 +107,7 @@ const colors = [
   'hsl(220, 20%, 25%)',
 ];
 
-export default function ExpensePieChart() {
+export default function IncomePieChart() {
   return (
     <Card
       variant="outlined"
