@@ -36,6 +36,7 @@ function getDaysInMonth(month, year) {
     days.push(`${monthName} ${i}`);
     i += 1;
   }
+  console.log(days)
   return days;
 }
 

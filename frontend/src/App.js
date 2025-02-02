@@ -8,13 +8,12 @@ import { alpha } from '@mui/material/styles';
 import {Box, Stack } from '@mui/material';
 
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar.js";
 import Dashboard from "./components/Dashboard";
 import GoalsForm from "./components/GoalsForm";
 import Investment from "./components/Investment";
 import Knowledge from "./components/Knowledge";
 import AuthButton from "./components/AuthButton"; // Import AuthButton
-import Income from "./components/Income.js";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -56,7 +55,6 @@ const ProtectedRoutes = (props) => {
             <Route path="/goals" element={<GoalsForm />} />
             <Route path="/investment" element={<Investment />} />
             <Route path="/knowledge" element={<Knowledge />} />
-            <Route path="/income" element={<Income />} />
           </Routes>
         </Stack>
       </Box>

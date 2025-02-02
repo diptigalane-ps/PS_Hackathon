@@ -128,10 +128,10 @@ export const getDashboardData = async (userId, startDate, endDate) => {
       }
       investmentStartDay = investmentStartDay.add(1, 'day');
     }
-    const tip = await getTip();
+    //const tip = await getTip();
 
     const response = {
-        tip,
+        //tip,
         total: {
           income: totalIncome,
           expense: totalExpense,
