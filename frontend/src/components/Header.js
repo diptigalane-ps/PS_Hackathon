@@ -14,8 +14,9 @@ const Header = ({ onMenuClick }) => {
           <MenuIcon />
         </IconButton>
 
-        <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-          Wealth Management
+        <Typography sx={{ flexGrow: 1, textAlign: "center" }}>
+          <Typography variant="h4">{'WealthWiz'}</Typography>
+          <Typography variant="h6">{'Next-Gen Wealth Management, Powered by AI'}</Typography>
         </Typography>
 
         {/* Notification Icon */}

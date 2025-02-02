@@ -20,8 +20,6 @@ export const getAllIncomeTransactions = async (user_id, skip) => {
       where: {
         user_id
       },
-      limit: 10,
-      offset: skip*10,
       include: [IncomeCategory],
     }
     return await incomeTransactionRepository.getAllIncomeTransactions(options);

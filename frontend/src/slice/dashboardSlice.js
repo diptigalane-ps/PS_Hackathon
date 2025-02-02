@@ -5,6 +5,7 @@ import { fetchDashboardFromAPI } from '../api/apiService';
 // Async thunk for fetching dashboard
 export const fetchDashboard = createAsyncThunk('users/fetchDashboard', async (data) => {
 	const response = await fetchDashboardFromAPI(data)
+	console.log(response, "slice")
 	if (response) {
 		return response
 	} else {
