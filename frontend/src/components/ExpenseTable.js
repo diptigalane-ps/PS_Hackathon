@@ -8,7 +8,6 @@ export default function ExpenseTable() {
 	const dispatch = useDispatch();
 	const expenses = useSelector((state) => state.expenses.data);
 	const status = useSelector((state) => state.expenses.status);
-  const error = useSelector((state) => state.expenses.error);
 
 	useEffect(() => {
 		if (status === 'idle') {

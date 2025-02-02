@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, CardMedia, Typography, Button, Container, Grid } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Button, Container, Grid } from "@mui/material";
 
 const courses = [
   {

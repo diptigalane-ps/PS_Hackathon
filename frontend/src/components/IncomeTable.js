@@ -8,7 +8,6 @@ export default function IncomeTable() {
 	const dispatch = useDispatch();
 	const incomes = useSelector((state) => state.incomes.data);
 	const status = useSelector((state) => state.incomes.status);
-  const error = useSelector((state) => state.incomes.error);
 
 	useEffect(() => {
 		if (status === 'idle') {

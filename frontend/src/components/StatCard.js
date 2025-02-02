@@ -1,10 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { formatAmount } from '../utils/utils';
@@ -26,25 +23,6 @@ AreaGradient.propTypes = {
 };
 
 function StatCard({ title, value, interval, trend, data }) {
-  const theme = useTheme();
-
-  const trendColors = {
-    up:
-      theme.palette.mode === 'light'
-        ? theme.palette.success.main
-        : theme.palette.success.dark,
-    down:
-      theme.palette.mode === 'light'
-        ? theme.palette.error.main
-        : theme.palette.error.dark,
-    neutral:
-      theme.palette.mode === 'light'
-        ? theme.palette.grey[400]
-        : theme.palette.grey[700],
-  };
-
-  
-  const chartColor = trendColors[trend];
 
   return (
     <Card variant="outlined" sx={{ height: '100%', flexGrow: 1 }}>

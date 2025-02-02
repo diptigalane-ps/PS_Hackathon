@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8080/api", // Replace with your API base URL

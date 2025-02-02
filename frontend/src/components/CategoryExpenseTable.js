@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { formatAmount, formatDate } from "../utils/utils";
+import { formatAmount } from "../utils/utils";
 import { expenses } from "../data/category_expense_table";
 
 export default function CategoryExpenseTable() {
