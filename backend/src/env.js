@@ -14,6 +14,10 @@ const env = {
     },
     auth: {
         domain: process.env.AUTH0_DOMAIN
+    },
+    genAi: {
+        key: process.env.GEMINI_KEY,
+        modal: process.env.GEMINI_MODAL
     }
 }
 

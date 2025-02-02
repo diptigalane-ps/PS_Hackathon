@@ -14,7 +14,8 @@ export const createIncomeTransaction = async (req, res) => {
 
 export const getAllIncomeTransactions = async (req, res) => {
   try {
-    const transactions = await incomeTransactionService.getAllIncomeTransactions();
+    const skip = Number(req.query.skip) || 0;
+    const transactions = await incomeTransactionService.getAllIncomeTransactions(req.user.id, skip);
     res.status(200).json(transactions);
   } catch (error) {
     res.status(500).json({ error: error.message });

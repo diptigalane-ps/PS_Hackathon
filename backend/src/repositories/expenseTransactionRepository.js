@@ -5,8 +5,8 @@ export const createExpenseTransaction = async (data) => {
   return await ExpenseTransaction.create(data);
 };
 
-export const getAllExpenseTransactions = async () => {
-  return await ExpenseTransaction.findAll();
+export const getAllExpenseTransactions = async (options = {}) => {
+  return await ExpenseTransaction.findAll(options);
 };
 
 export const getExpenseTransactionById = async (id) => {
