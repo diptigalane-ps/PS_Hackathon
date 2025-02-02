@@ -25,9 +25,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchDashboard(JSON.stringify({
+      dispatch(fetchDashboard({
         month: "Jan"
-      })));
+      }));
     }
   }, [status, dispatch]);
 
@@ -67,7 +67,7 @@ export default function Dashboard() {
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Typography component="h2" variant="h6">
-            Manage Expense Tips
+            Finance Tips
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_API_URL, // Replace with your API base URL
+  baseURL: "http://localhost:8080/api", // Replace with your API base URL
 });
 
 // ✅ Custom hook to set up Axios interceptor for authentication

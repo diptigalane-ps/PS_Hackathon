@@ -81,11 +81,21 @@ const colors = [
   'hsl(40, 90%, 40%)',
   'hsl(45, 90%, 45%)',
   'hsl(50, 90%, 50%)',
-  'hsl(55, 90%, 55%)',
+  'hsl(100, 90%, 55%)',
+  'hsl(200, 90%, 60%)',
+  'hsl(300, 90%, 65%)',
+  'hsl(300, 90%, 0%)',
+  'hsl(300, 90%, 20%)',
+  'hsl(300, 90%, 40%)',
+  'hsl(300, 90%, 90%)',
+
+
 ];
 
 export default function ExpensePieChart({data, percentage}) {
   const formattedTotalValue = data.reduce((sum, item) => sum + item.value, 0);
+
+    console.log(data)
 
   return (
     <Card
