@@ -1,5 +1,6 @@
 import * as incomeTransactionRepository from '../repositories/incomeTransactionRepository.js';
 import * as incomeCategoryRepository from '../repositories/incomeCategoryRepository.js';
+import IncomeCategory from '../models/incomeCategory.js';
 
 export const createIncomeTransaction = async (user, data) => {
   try {
@@ -20,7 +21,8 @@ export const getAllIncomeTransactions = async (user_id, skip) => {
         user_id
       },
       limit: 10,
-      offset: skip*10
+      offset: skip*10,
+      include: [IncomeCategory],
     }
     return await incomeTransactionRepository.getAllIncomeTransactions(options);
     } catch (error) {
