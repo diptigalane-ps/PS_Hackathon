@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatAmount, formatDate } from "../utils/utils";
 import { fetchExpenses } from '../slice/expenseSlice';
+import { DataGrid } from '@mui/x-data-grid';
 
 export default function ExpenseTable() {
 	const dispatch = useDispatch();

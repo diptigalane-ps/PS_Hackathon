@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatAmount, formatDate } from "../utils/utils";
 import { fetchIncomes } from '../slice/incomeSlice';
+import { DataGrid } from '@mui/x-data-grid';
 
 export default function IncomeTable() {
 	const dispatch = useDispatch();

@@ -8,7 +8,6 @@ import { alpha } from '@mui/material/styles';
 import {Box, Stack } from '@mui/material';
 
 import Header from "./components/Header";
-import Sidebar from "./components/Sidebar.js";
 import Dashboard from "./components/Dashboard";
 import GoalsForm from "./components/GoalsForm";
 import Investment from "./components/Investment";
@@ -38,7 +37,7 @@ const ProtectedRoutes = (props) => {
   return (
     <div>
       <Header onMenuClick={() => setSidebarOpen(true)} />
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      {/* <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} /> */}
 
       <Box
         component="main"
