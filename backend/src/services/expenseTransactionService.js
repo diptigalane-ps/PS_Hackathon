@@ -1,6 +1,7 @@
 // services/expenseTransactionService.js
 import * as expenseTransactionRepository from '../repositories/expenseTransactionRepository.js';
 import * as expenseCategoryRepository from '../repositories/expenseCategoryRepository.js';
+import ExpenseCategory from '../models/expenseCategory.js';
 
 export const createExpenseTransaction = async (user, data) => {
   try {
@@ -21,7 +22,8 @@ export const getAllExpenseTransactions = async (user_id, skip) => {
         user_id
       },
       limit: 10,
-      offset: skip*10
+      offset: skip*10,
+      include: [ExpenseCategory]
     }
     return await expenseTransactionRepository.getAllExpenseTransactions(options);
   } catch (error) {
