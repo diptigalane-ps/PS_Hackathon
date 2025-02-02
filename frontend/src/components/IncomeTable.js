@@ -20,16 +20,17 @@ export default function IncomeTable() {
 		{
 			field: "income_category_name",
 			headerName: 'Income Type',
-			headerAlign: 'right',
-			align: 'right',
+			headerAlign: 'left',
+			align: 'left',
 			flex: 1,
 			minWidth: 80,
+			renderCell: ({row}) => row.Income_Category.name
 		},
 		{
 			field: "date",
 			headerName: 'Date',
-			headerAlign: 'right',
-			align: 'right',
+			headerAlign: 'left',
+			align: 'left',
 			flex: 1,
 			minWidth: 100,
 			renderCell: (params) => formatDate(params.value)
@@ -37,8 +38,8 @@ export default function IncomeTable() {
 		{
 			field: "amount",
 			headerName: 'Amount',
-			headerAlign: 'right',
-			align: 'right',
+			headerAlign: 'left',
+			align: 'left',
 			flex: 1,
 			minWidth: 120,
 			renderCell: (params) => formatAmount(params.value)

@@ -1,63 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Typography from '@mui/material/Typography';
-import TransactionModal from './TransactionModal';
 import { Button, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import ExpenseModal from './ExpenseModal';
+import { useDispatch, useSelector } from 'react-redux';
+
 import ExpensePieChart from './ExpensePieChart';
-import SessionsChart from './SessionChart';
 import StatCard from './StatCard';
 import IncomeTable from './IncomeTable';
 import ExpenseTable from './ExpenseTable';
 import IncomePieChart from './IncomePieChart';
 import ExpenseTips from './ExpenseTips';
 import CategoryExpenseTable from './CategoryExpenseTable';
+import { fetchDashboard } from '../slice/dashboardSlice';
 
- const Dashboard = () => {
-  const [ openExpenseModal, setOpenExpenseModal ] = useState(false);
+export default function Dashboard() {
+  const dispatch = useDispatch();
+	const dashboard = useSelector((state) => state.dashboard.data);
+	const status = useSelector((state) => state.dashboard.status);
+  const error = useSelector((state) => state.dashboard.error);
 
-  const data = [
-    {
-      title: 'Total Income',
-      value: '300000.00',
-      interval: 'Last 30 days',
-      trend: 'up',
-      data: [
-        200, 24, 220, 260, 240, 380, 100, 240, 280, 240, 300, 340, 320, 360, 340, 380,
-        360, 400, 380, 420, 400, 640, 340, 460, 440, 480, 460, 600, 880, 920,
-      ],
-    },
-    {
-      title: 'Expenses',
-      value: '120000.00',
-      interval: 'Last 30 days',
-      trend: 'down',
-      data: [
-        1640, 1250, 970, 1130, 1050, 900, 720, 1080, 900, 450, 920, 820, 840, 600, 820,
-        780, 800, 760, 380, 740, 660, 620, 840, 500, 520, 480, 400, 360, 300, 220,
-      ],
-    },
-    {
-      title: 'Investments',
-      value: '40000.00',
-      interval: 'Last 30 days',
-      trend: 'neutral',
-      data: [
-        500, 400, 510, 530, 520, 600, 530, 520, 510, 730, 520, 510, 530, 620, 510, 530,
-        520, 410, 530, 520, 610, 530, 520, 610, 530, 420, 510, 430, 520, 510,
-      ],
-    },
-    {
-      title: 'Remaining',
-      value: '140000.00',
-      interval: 'Last 30 days',
-      trend: 'neutral',
-      data: [
-        500, 400, 510, 530, 520, 600, 530, 520, 510, 730, 520, 510, 530, 620, 510, 530,
-        520, 410, 530, 520, 610, 530, 520, 610, 530, 420, 510, 430, 520, 510,
-      ],
-    },
-  ];
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchDashboard());
+    }
+  }, [status, dispatch]);
 
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
@@ -65,9 +31,17 @@ import CategoryExpenseTable from './CategoryExpenseTable';
         Overview
       </Typography>
       <Grid container spacing={2} columns={12} mb={2}>
-        {data.map((card, index) => (
-          <Grid key={index} size={{ xs: 12, lg: 3 }}>
-            <StatCard {...card}/>
+        {dashboard.total && Object.entries(dashboard.total).map(([key, value]) => (
+          <Grid key={key} size={{ xs: 12, lg: 3 }}>
+            <StatCard 
+              title={key.toUpperCase()}
+              value={value.value || value}
+              interval={'This month'}
+              trend={
+                key === "income" ? "up" : key === "expense" ? "down" : key === "investment" ? "up" : "neutral"
+              }
+              data={value.data || []}
+            />
           </Grid>
         ))}
       </Grid>
@@ -78,7 +52,7 @@ import CategoryExpenseTable from './CategoryExpenseTable';
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }} alignItems={"end"}>
-          <Button onClick={() => setOpenExpenseModal(true)} variant="outlined">Add Expense Transaction</Button>
+          <Button onClick={() => console.log("Function Call")} variant="outlined">Add Expense Transaction</Button>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Typography component="h2" variant="h6">
@@ -96,7 +70,12 @@ import CategoryExpenseTable from './CategoryExpenseTable';
           <ExpenseTable />
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
-          <ExpensePieChart />
+          {dashboard.pieChart && Array.isArray(dashboard.pieChart.expenses.data) && dashboard.pieChart.expenses.data.length > 0 &&
+            <ExpensePieChart 
+              data={dashboard.pieChart.expenses.data}
+              percentage={dashboard.pieChart.expenses.percentage}
+            />
+          }
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <ExpenseTips />
@@ -106,17 +85,17 @@ import CategoryExpenseTable from './CategoryExpenseTable';
         </Grid>
       </Grid>
       <Grid container spacing={2} columns={12} mb={2}>
-        <Grid size={{ xs: 12, lg: 9 }}>
+        <Grid size={{ xs: 12, lg: 3 }}>
           <Typography component="h2" variant="h6">
             Recent Income Transactions
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }} alignItems={"end"}>
-          <Button onClick={() => setOpenExpenseModal(true)} variant="outlined">Add Income Transaction</Button>
+          <Button onClick={() => console.log("Function Call")} variant="outlined">Add Income Transaction</Button>
         </Grid>
       </Grid>
       <Grid container spacing={2} columns={12} mb={2}>
-        <Grid size={{ xs: 12, lg: 9 }}>
+        <Grid size={{ xs: 12, lg: 3 }}>
           <IncomeTable />
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
@@ -126,5 +105,3 @@ import CategoryExpenseTable from './CategoryExpenseTable';
     </Box>
   );
 };
-
-export default Dashboard;

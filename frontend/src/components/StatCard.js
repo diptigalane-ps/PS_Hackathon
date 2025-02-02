@@ -44,7 +44,7 @@ AreaGradient.propTypes = {
 
 function StatCard({ title, value, interval, trend, data }) {
   const theme = useTheme();
-  const daysInWeek = getDaysInMonth(4, 2024);
+  const daysInWeek = getDaysInMonth(1, 2024);
 
   const trendColors = {
     up:
@@ -61,15 +61,8 @@ function StatCard({ title, value, interval, trend, data }) {
         : theme.palette.grey[700],
   };
 
-  const labelColors = {
-    up: 'success',
-    down: 'error',
-    neutral: 'default',
-  };
-
-  const color = labelColors[trend];
+  
   const chartColor = trendColors[trend];
-  const trendValues = { up: '+25%', down: '-25%', neutral: '+5%' };
 
   return (
     <Card variant="outlined" sx={{ height: '100%', flexGrow: 1 }}>
@@ -89,7 +82,6 @@ function StatCard({ title, value, interval, trend, data }) {
               <Typography variant="h4" component="p">
                 {formatAmount(value)}
               </Typography>
-              <Chip size="small" color={color} label={trendValues[trend]} />
             </Stack>
             <Typography variant="caption" sx={{ color: 'text.secondary' }}>
               {interval}

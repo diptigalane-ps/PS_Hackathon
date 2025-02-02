@@ -16,7 +16,6 @@ export default function ExpenseTable() {
 		}
 	}, [status, dispatch]);
 
-		
 	const columns = [
 		{
 			field: "expense_category_name",
@@ -25,6 +24,7 @@ export default function ExpenseTable() {
 			align: 'left',
 			flex: 1,
 			minWidth: 80,
+			renderCell: ({row}) => row.Expense_Category.name
 		},
 		{
 			field: "date",

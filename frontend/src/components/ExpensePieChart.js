@@ -9,36 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-
-const data = [
-  { label: 'Food', value: 10000 },
-  { label: 'Clothing', value: 35000 },
-  { label: 'Education', value: 10000 },
-  { label: 'Household', value: 5000 },
-];
-
-const countries = [
-  {
-    name: 'Food',
-    value: 50,
-    color: 'hsl(220, 25%, 65%)',
-  },
-  {
-    name: 'Clothing',
-    value: 35,
-    color: 'hsl(220, 25%, 45%)',
-  },
-  {
-    name: 'Education',
-    value: 10,
-    color: 'hsl(220, 25%, 30%)',
-  },
-  {
-    name: 'Household',
-    value: 5,
-    color: 'hsl(220, 25%, 20%)',
-  },
-];
+import { formatAmount } from '../utils/utils';
 
 const StyledText = styled('text', {
   shouldForwardProp: (prop) => prop !== 'variant',
@@ -101,13 +72,21 @@ PieCenterLabel.propTypes = {
 };
 
 const colors = [
-  'hsl(220, 20%, 65%)',
-  'hsl(220, 20%, 42%)',
-  'hsl(220, 20%, 35%)',
-  'hsl(220, 20%, 25%)',
+  'hsl(10, 90%, 10%)',
+  'hsl(15, 90%, 15%)',
+  'hsl(20, 90%, 20%)',
+  'hsl(25, 90%, 25%)',
+  'hsl(30, 90%, 30%)',
+  'hsl(35, 90%, 35%)',
+  'hsl(40, 90%, 40%)',
+  'hsl(45, 90%, 45%)',
+  'hsl(50, 90%, 50%)',
+  'hsl(55, 90%, 55%)',
 ];
 
-export default function ExpensePieChart() {
+export default function ExpensePieChart({data, percentage}) {
+  const formattedTotalValue = data.reduce((sum, item) => sum + item.value, 0);
+
   return (
     <Card
       variant="outlined"
@@ -138,16 +117,15 @@ export default function ExpensePieChart() {
               legend: { hidden: true },
             }}
           >
-            <PieCenterLabel primaryText="98.5K" secondaryText="Total" />
+            <PieCenterLabel primaryText={formatAmount(formattedTotalValue)} secondaryText="Total" />
           </PieChart>
         </Box>
-        {countries.map((country, index) => (
+        {percentage.map((data, index) => (
           <Stack
             key={index}
             direction="row"
             sx={{ alignItems: 'center', gap: 2, pb: 2 }}
           >
-            {country.flag}
             <Stack sx={{ gap: 1, flexGrow: 1 }}>
               <Stack
                 direction="row"
@@ -158,19 +136,19 @@ export default function ExpensePieChart() {
                 }}
               >
                 <Typography variant="body2" sx={{ fontWeight: '500' }}>
-                  {country.name}
+                  {data.name}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {country.value}%
+                  {data.value}%
                 </Typography>
               </Stack>
               <LinearProgress
                 variant="determinate"
                 aria-label="Number of users by country"
-                value={country.value}
+                value={data.value}
                 sx={{
                   [`& .${linearProgressClasses.bar}`]: {
-                    backgroundColor: country.color,
+                    backgroundColor: data.color,
                   },
                 }}
               />
