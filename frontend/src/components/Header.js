@@ -26,7 +26,15 @@ const Header = ({ onMenuClick }) => {
         </IconButton>
 
         {/* Logout Button */}
-        <IconButton color="inherit" onClick={() => logout({ returnTo: window.location.origin })}>
+        <IconButton 
+          color="inherit" 
+          onClick= {
+            () => {
+              localStorage.clear()
+              logout({ returnTo: window.location.origin })
+            }
+          }
+        >
           <LogoutIcon />
         </IconButton>
       </Toolbar>

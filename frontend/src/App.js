@@ -14,16 +14,25 @@ import GoalsForm from "./components/GoalsForm";
 import Investment from "./components/Investment";
 import Knowledge from "./components/Knowledge";
 import AuthButton from "./components/AuthButton"; // Import AuthButton
+import Chatbot from "./components/Chatbot"; 
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 const ProtectedRoutes = (props) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, getIdTokenClaims } = useAuth0();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (!isAuthenticated) {
     return <AuthButton />; // Show login button instead of navigating to another page
+  } else {
+    (async () => {
+      const value = localStorage.getItem("token");
+      if (!value) {
+        const response = await getIdTokenClaims();
+        localStorage.setItem("token", response.__raw)
+      }
+    })()
   }
 
   return (
@@ -70,6 +79,7 @@ function App() {
           <Routes>
             <Route path="/*" element={<ProtectedRoutes />} />
           </Routes>
+          <Chatbot />
         </Router>
       </Provider>
     </Auth0Provider>

@@ -5,9 +5,9 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { TextField, MenuItem, Button, FormHelperText, FormControl, InputLabel, Select, Typography } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
-import { fetchCategories, submitExpense } from '../api/apiService';
+import { fetchIncomeCategories, submitIncome } from '../api/apiService';
 
-export default function ExpenseModal(props) {
+export default function IncomeModal(props) {
   const { open, close } = props;
 
   const [categories, setCategories] = useState([]);
@@ -18,7 +18,7 @@ export default function ExpenseModal(props) {
     if (categories.length === 0) {
       setLoading(true);
       try {
-        const data = await fetchCategories();
+        const data = await fetchIncomeCategories();
         setCategories(data);
       } catch (error) {
         console.error("Error fetching categories", error);
@@ -42,23 +42,23 @@ export default function ExpenseModal(props) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography>Expense</Typography>
+        <Typography>Income</Typography>
         <Formik
           initialValues={{ category: '', amount: '' }}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting }) => {
             try {
-              const expenseData = {
-                expense_category_id: values.category,
+              const incomeData = {
+                income_category_id: values.category,
                 amount: values.amount,
                 date: new Date().toISOString().split('T')[0],
               };
 
-              await submitExpense(expenseData);
-              console.log('Expense submitted successfully');
+              await submitIncome(incomeData);
+              console.log('Income submitted successfully');
               close();
             } catch (error) {
-              console.error('Error submitting expense:', error);
+              console.error('Error submitting income:', error);
             } finally {
               setSubmitting(false);
             }

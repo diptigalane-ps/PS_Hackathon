@@ -11,6 +11,8 @@ import ExpenseTable from './ExpenseTable';
 import IncomePieChart from './IncomePieChart';
 import ExpenseTips from './ExpenseTips';
 import CategoryExpenseTable from './CategoryExpenseTable';
+import ExpenseModal from './ExpenseModal';
+import IncomeModal from './IncomeModal';
 import { fetchDashboard } from '../slice/dashboardSlice';
 
 export default function Dashboard() {
@@ -19,9 +21,14 @@ export default function Dashboard() {
 	const status = useSelector((state) => state.dashboard.status);
   const error = useSelector((state) => state.dashboard.error);
 
+  const [openExpenseModal, setOpenExpenseModal] = useState(false);
+  const [openIncomeModal, setOpenIncomeModal] = useState(false); // State for IncomeModal
+
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchDashboard());
+      dispatch(fetchDashboard(JSON.stringify({
+        month: "Jan"
+      })));
     }
   }, [status, dispatch]);
 
@@ -35,12 +42,12 @@ export default function Dashboard() {
           <Grid key={key} size={{ xs: 12, lg: 3 }}>
             <StatCard 
               title={key.toUpperCase()}
-              value={value.value || value}
+              value={value.value || 0}
               interval={'This month'}
               trend={
                 key === "income" ? "up" : key === "expense" ? "down" : key === "investment" ? "up" : "neutral"
               }
-              data={value.data || []}
+              data={[]}
             />
           </Grid>
         ))}
@@ -52,7 +59,12 @@ export default function Dashboard() {
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }} alignItems={"end"}>
-          <Button onClick={() => console.log("Function Call")} variant="outlined">Add Expense Transaction</Button>
+          <Button
+            onClick={() => setOpenExpenseModal(true)}
+            variant="outlined"
+          >
+            Add Expense Transaction
+          </Button>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Typography component="h2" variant="h6">
@@ -91,7 +103,12 @@ export default function Dashboard() {
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }} alignItems={"end"}>
-          <Button onClick={() => console.log("Function Call")} variant="outlined">Add Income Transaction</Button>
+          <Button
+            onClick={() => setOpenIncomeModal(true)}
+            variant="outlined"
+          >
+            Add Income Transaction
+          </Button>
         </Grid>
       </Grid>
       <Grid container spacing={2} columns={12} mb={2}>
@@ -102,6 +119,16 @@ export default function Dashboard() {
           <IncomePieChart />
         </Grid>
       </Grid>
+      {/* Expense Modal */}
+      <ExpenseModal
+        open={openExpenseModal}
+        close={() => setOpenExpenseModal(false)}
+      />
+      {/* Income Modal */}
+      <IncomeModal
+        open={openIncomeModal}
+        close={() => setOpenIncomeModal(false)}
+      />
     </Box>
   );
 };
